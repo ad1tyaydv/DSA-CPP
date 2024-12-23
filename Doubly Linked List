@@ -74,6 +74,60 @@ Node* InsertTail(Node* head, int val) {
     return head;
 }
 
+Node* InsertAtKthposition(Node* head, int val, int k) {
+    Node* temp = new Node(val);
+
+    if(k == 1)  {
+        temp->next = head;
+        head->back = temp;
+        return temp;
+    }
+    Node* mover = head;
+    int count = 1;
+    while(mover != NULL && count < k - 1) {
+        mover = mover->next;
+        count++;
+    }
+    temp->next = mover->next;
+    temp->back = mover;
+    mover->next = temp;
+
+    return head;
+}
+
+Node* DeleteHead(Node* head) {
+    if(head == NULL) return NULL;
+    Node* temp = head;
+    head = head->next;
+    temp->next = NULL;
+    head->back = NULL;
+    return head;
+}
+
+Node* DeleteTail(Node* head) {
+    if(head == NULL) return NULL;
+
+    Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+
+        temp->back->next = nullptr;
+        delete temp;
+        return head;
+    }
+
+int LengthOfLL(Node* head) {
+    Node* temp = head;
+    int count = 0;
+
+    while(temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
 int main() {
     vector<int> arr = {1,2,4,3,4,5};
     Node* head = ConvertArr2DLL(arr);
